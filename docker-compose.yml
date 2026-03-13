@@ -1,0 +1,41 @@
+# ============================================================
+# Docker Compose - Agentic Accounting Close Assistant
+# ============================================================
+# Single command to build and run:
+#   docker-compose up --build
+#
+# Access the API at: http://localhost:8000
+# API docs at: http://localhost:8000/docs
+# ============================================================
+
+version: "3.8"
+
+services:
+  accounting-close:
+    build: .
+    ports:
+      - "8000:8000"
+    environment:
+      - OPENAI_API_KEY=${OPENAI_API_KEY}
+      - OPENAI_MODEL_NAME=${OPENAI_MODEL_NAME:-gpt-4o-mini}
+      - EMBEDDING_MODEL=${EMBEDDING_MODEL:-text-embedding-ada-002}
+      - CONFIDENCE_THRESHOLD=${CONFIDENCE_THRESHOLD:-0.7}
+      - AUDIT_TRAIL_ENABLED=${AUDIT_TRAIL_ENABLED:-true}
+      - API_HOST=0.0.0.0
+      - API_PORT=8000
+    volumes:
+      # Persist the SQLite database and ChromaDB index between restarts.
+      # Without this, the database and vector store would be lost
+      # every time the container restarts.
+      - db-data:/app/src/data
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8000/health')"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 10s
+
+volumes:
+  db-data:
+    driver: local
