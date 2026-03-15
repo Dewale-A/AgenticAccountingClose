@@ -146,7 +146,8 @@ class GovernanceEngine:
             Updated entry with governance fields set
         """
         # ---- Check 1: Entry must be balanced ----
-        if not entry.is_balanced:
+        # Use tolerance for floating point comparison ($0.01)
+        if abs(entry.total_debits - entry.total_credits) > 0.01:
             entry.status = EntryStatus.REJECTED
             entry.rejection_reason = "Entry is not balanced. Total debits must equal total credits."
             self._log_event(

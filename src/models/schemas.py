@@ -212,7 +212,7 @@ class JournalEntry(BaseModel):
     # Financial totals
     total_debits: float = Field(description="Sum of all debit lines")
     total_credits: float = Field(description="Sum of all credit lines")
-    is_balanced: bool = Field(description="Whether debits equal credits")
+    is_balanced: bool = Field(description="Whether debits equal credits (within $0.01 tolerance)")
     
     # Materiality and approval routing
     materiality_amount: float = Field(description="Absolute value of largest line item")

@@ -286,6 +286,44 @@ The database is seeded with realistic month-end close data:
 - **8 close tasks** in the month-end checklist
 - **3 policy documents** for the RAG pipeline (accounting policies, SOX guide, close procedures)
 
+## Production Considerations
+
+This project demonstrates agentic AI architecture patterns for regulated accounting environments. For production deployment, the following enhancements would be required:
+
+**Authentication and Authorization**
+- Integrate with identity provider (Azure AD, Okta, or similar)
+- Implement role-based access control (RBAC) on all API endpoints
+- Bind segregation of duties enforcement to authenticated identities rather than string names
+- Add API key or OAuth2 token validation
+
+**Data Layer**
+- Replace SQLite with PostgreSQL for concurrent access and production reliability
+- Implement connection pooling
+- Add database migrations (Alembic)
+- Connect to actual ERP systems (NetSuite, SAP, Snowflake) via API instead of simulated data
+
+**Agent Output Reliability**
+- Use CrewAI structured output (Pydantic output models) for deterministic agent responses
+- Implement output validation and retry logic for malformed agent responses
+- Add fallback handling when LLM API calls fail or timeout
+
+**Observability**
+- Structured logging (JSON format) with correlation IDs per close period
+- Metrics collection (Prometheus) for agent processing times and success rates
+- Alerting on failed SOX control tests or governance policy violations
+- Dashboard integration (Grafana) for real-time close progress monitoring
+
+**Testing**
+- Expand test suite to cover all agent interactions
+- Add integration tests with mocked LLM responses
+- Implement contract tests for API endpoints
+- Add load testing for concurrent close processing
+
+**Financial Precision**
+- Use Python Decimal type for all monetary calculations
+- Implement configurable rounding rules per accounting standard
+- Add multi-currency support with exchange rate management
+
 ## License
 
 MIT
