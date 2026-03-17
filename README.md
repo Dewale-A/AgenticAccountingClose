@@ -223,8 +223,9 @@ This entry ($24,250) exceeds the L1 threshold ($10,000), so it routes to the Acc
 AgenticAccountingClose/
 ├── README.md                          # You are here
 ├── docs/
-│   ├── architecture.svg               # System architecture diagram
-│   └── architecture.png               # Rendered PNG version
+│   ├── architecture.svg               # System architecture diagram (V2)
+│   ├── architecture.png               # Rendered PNG version
+│   └── PROJECT_OVERVIEW.md            # Project story and design rationale
 ├── src/
 │   ├── agents/
 │   │   └── definitions.py             # 6 agent definitions (role, goal, backstory)
