@@ -1,5 +1,7 @@
 # AgenticAccountingClose
 
+![CI](https://github.com/Dewale-A/AgenticAccountingClose/actions/workflows/ci.yml/badge.svg)
+
 An AI-powered **Month-End Close Assistant** built with a **governance-first** design, **SOX-compliant** controls, **segregation of duties**, and **human-in-the-loop** oversight. Six specialized AI agents work as a sequential pipeline to collect data, prepare journal entries, reconcile accounts, analyze variances, test SOX controls, and generate the close package, all with a full audit trail.
 
 ## Architecture
